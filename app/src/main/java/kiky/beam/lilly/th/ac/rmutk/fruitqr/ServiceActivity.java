@@ -36,7 +36,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.contentServiceFragment, ShowListFragment.showListInstance(Integer.parseInt(typeUserString.trim())))
+                .add(R.id.contentServiceFragment, ShowListFragment.showListInstance(Integer.parseInt(typeUserString.trim()), idString))
                 .commit();
 
 

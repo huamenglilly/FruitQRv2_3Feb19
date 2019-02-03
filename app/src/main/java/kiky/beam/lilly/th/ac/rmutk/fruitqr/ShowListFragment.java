@@ -24,16 +24,18 @@ import java.util.ArrayList;
 public class ShowListFragment extends Fragment {
 
     private int typeUserAnInt;
+    private String idLoginString;
 
 
     public ShowListFragment() {
         // Required empty public constructor
     }
 
-    public static ShowListFragment showListInstance(int index) {
+    public static ShowListFragment showListInstance(int index, String idLogin) {
         ShowListFragment showListFragment = new ShowListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("TypeUser", index);
+        bundle.putString("Login", idLogin);
         showListFragment.setArguments(bundle);
         return showListFragment;
     }
@@ -41,6 +43,8 @@ public class ShowListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        idLoginString = getArguments().getString("Login");
 
         typeUserAnInt = getArguments().getInt("TypeUser", 0);
         Log.d("3FebV1", "typeUser ==> " + typeUserAnInt);
@@ -106,7 +110,58 @@ public class ShowListFragment extends Fragment {
                 }
 
                 break;
-        }
+            case 2:
+
+                try {
+
+                    GetDataWhereOneColumn getDataWhereOneColumn = new GetDataWhereOneColumn(getActivity());
+                    getDataWhereOneColumn.execute("idUser", idLoginString, myconstant.getUrlGetDetailWhereIdUser());
+                    String json = getDataWhereOneColumn.get();
+                    Log.d("3FebV1", "json ==> " + json);
+
+                    JSONArray jsonArray = new JSONArray(json);
+                    for (int i = 0; i < jsonArray.length(); i += 1) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        nameStringArrayList.add(jsonObject.getString("Name"));
+                        dateStringArrayList.add(jsonObject.getString("Date"));
+                        amountStringArrayList.add(jsonObject.getString("Amount"));
+                        unitStringArrayList.add(jsonObject.getString("Unit"));
+                        imageStringArrayList.add(jsonObject.getString("Image"));
+                        idUserStringArrayList.add(jsonObject.getString("idUser"));
+
+                    }
+
+                    ShowListAdapter showListAdapter = new ShowListAdapter(getActivity(), nameStringArrayList,
+                            dateStringArrayList, amountStringArrayList,
+                            unitStringArrayList, imageStringArrayList, new OnClickItem() {
+                        @Override
+                        public void onClickitem(View view, int position) {
+
+                            Intent intent = new Intent(getActivity(), DetailServiceActivity.class);
+                            intent.putExtra("Name", nameStringArrayList.get(position));
+                            intent.putExtra("Date", dateStringArrayList.get(position));
+                            intent.putExtra("Amount", amountStringArrayList.get(position));
+                            intent.putExtra("Unit", unitStringArrayList.get(position));
+                            intent.putExtra("Image", imageStringArrayList.get(position));
+                            intent.putExtra("IdUser", idUserStringArrayList.get(position));
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    recyclerView.setAdapter(showListAdapter);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case 3:
+
+                break;
+
+
+        }   // Switch
 
 
     }   // Main Method
