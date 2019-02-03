@@ -1,6 +1,7 @@
 package kiky.beam.lilly.th.ac.rmutk.fruitqr;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -49,11 +50,12 @@ public class ShowListFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         Myconstant myconstant = new Myconstant();
-        ArrayList<String> nameStringArrayList = new ArrayList<>();
-        ArrayList<String> dateStringArrayList = new ArrayList<>();
-        ArrayList<String> amountStringArrayList = new ArrayList<>();
-        ArrayList<String> unitStringArrayList = new ArrayList<>();
-        ArrayList<String> imageStringArrayList = new ArrayList<>();
+        final ArrayList<String> nameStringArrayList = new ArrayList<>();
+        final ArrayList<String> dateStringArrayList = new ArrayList<>();
+        final ArrayList<String> amountStringArrayList = new ArrayList<>();
+        final ArrayList<String> unitStringArrayList = new ArrayList<>();
+        final ArrayList<String> imageStringArrayList = new ArrayList<>();
+
 
         switch (typeUserAnInt) {
             case 1:
@@ -81,6 +83,14 @@ public class ShowListFragment extends Fragment {
                             unitStringArrayList, imageStringArrayList, new OnClickItem() {
                         @Override
                         public void onClickitem(View view, int position) {
+
+                            Intent intent = new Intent(getActivity(), DetailServiceActivity.class);
+                            intent.putExtra("Name", nameStringArrayList.get(position));
+                            intent.putExtra("Date", dateStringArrayList.get(position));
+                            intent.putExtra("Amount", amountStringArrayList.get(position));
+                            intent.putExtra("Unit", unitStringArrayList.get(position));
+                            intent.putExtra("Image", imageStringArrayList.get(position));
+                            startActivity(intent);
 
                         }
                     });
