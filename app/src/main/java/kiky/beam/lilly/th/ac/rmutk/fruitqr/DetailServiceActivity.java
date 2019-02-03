@@ -5,10 +5,20 @@ import android.os.Bundle;
 
 public class DetailServiceActivity extends AppCompatActivity {
 
+    private String nameString, dateString, amountString, unitString, imageString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_service);
+
+
+        nameString = getIntent().getStringExtra("Name");
+        dateString = getIntent().getStringExtra("Date");
+        amountString = getIntent().getStringExtra("Amount");
+        unitString = getIntent().getStringExtra("Unit");
+        imageString = getIntent().getStringExtra("Image");
+
 
         getSupportFragmentManager()
                 .beginTransaction()
