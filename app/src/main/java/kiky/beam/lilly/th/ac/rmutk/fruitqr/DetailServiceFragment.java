@@ -2,10 +2,15 @@ package kiky.beam.lilly.th.ac.rmutk.fruitqr;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -13,11 +18,53 @@ import android.view.ViewGroup;
  */
 public class DetailServiceFragment extends Fragment {
 
+    private String nameString, dateString, amountString, unitString, imageString;
+
 
     public DetailServiceFragment() {
         // Required empty public constructor
     }
 
+
+    public static DetailServiceFragment detailServiceInstance(String name, String date, String amount, String unit, String image) {
+
+        DetailServiceFragment detailServiceFragment = new DetailServiceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("Name", name);
+        bundle.putString("Date", date);
+        bundle.putString("Amount", amount);
+        bundle.putString("Unit", unit);
+        bundle.putString("Image", image);
+        detailServiceFragment.setArguments(bundle);
+        return detailServiceFragment;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        nameString = getArguments().getString("Name");
+        dateString = getArguments().getString("Date");
+        amountString = getArguments().getString("Amount");
+        unitString = getArguments().getString("Unit");
+        imageString = getArguments().getString("Image");
+
+        TextView nameTextView = getView().findViewById(R.id.txtName);
+        nameTextView.setText(nameString);
+
+        TextView dateTextView = getView().findViewById(R.id.txtDate);
+        dateTextView.setText(dateString);
+
+        TextView amountTextView = getView().findViewById(R.id.txtAmount);
+        amountTextView.setText(amountString);
+
+        TextView unitTextView = getView().findViewById(R.id.txtUnit);
+        unitTextView.setText(unitString);
+
+        ImageView imageView = getView().findViewById(R.id.imvDetail);
+        Picasso.get().load(imageString).into(imageView);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

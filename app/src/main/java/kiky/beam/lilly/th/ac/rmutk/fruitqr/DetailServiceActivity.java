@@ -22,7 +22,7 @@ public class DetailServiceActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.contentDetailServiceFragment, new DetailServiceFragment())
+                .add(R.id.contentDetailServiceFragment, DetailServiceFragment.detailServiceInstance(nameString, dateString, amountString, unitString, imageString))
                 .commit();
 
     }
