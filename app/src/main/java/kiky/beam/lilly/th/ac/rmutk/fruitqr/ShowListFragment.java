@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class ShowListFragment extends Fragment {
 
+
     private int typeUserAnInt;
     private String idLoginString;
 
