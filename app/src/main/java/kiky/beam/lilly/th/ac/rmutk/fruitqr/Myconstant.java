@@ -6,6 +6,11 @@ public class Myconstant {
     private String urlGetAllData = "https://www.androidthai.in.th/rmutk/getAllDatalilly.php";
     private String urlGetDataWhereQR = "https://www.androidthai.in.th/rmutk/getDetailWhereQRmaster.php";
     private String urlGetUserWhereId = "https://www.androidthai.in.th/rmutk/getUserWhereId.php";
+    private String urlGetAllDetail = "https://www.androidthai.in.th/rmutk/getDetail.php";
+
+    public String getUrlGetAllDetail() {
+        return urlGetAllDetail;
+    }
 
     public String getUrlGetUserWhereId() {
         return urlGetUserWhereId;
