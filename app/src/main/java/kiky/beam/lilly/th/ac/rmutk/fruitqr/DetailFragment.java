@@ -27,16 +27,18 @@ public class DetailFragment extends Fragment {
 
     private  String qrCode, nameString, imageString, amountString, unitString,
             dateString, idShopString, nameShopString, addressString, phoneString;
+    private boolean loginABoolean;
 
     public DetailFragment() {
         // Required empty public constructor
     }
 
-    public static DetailFragment detailFragment(String resuliQR) {
+    public static DetailFragment detailFragment(String resuliQR, boolean b) {
 
         DetailFragment detailFragment = new DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putString("QRcode", resuliQR);
+        bundle.putBoolean("Login", b);
         detailFragment.setArguments(bundle);
         return detailFragment;
 
@@ -48,6 +50,9 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        loginABoolean = getArguments().getBoolean("Login");
+        Log.d("3FebV2", "LoginBool at Detail ==> " + loginABoolean);
 
 //        Create Toolbar
         createToolbar();
@@ -66,9 +71,15 @@ public class DetailFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getActivity().getIntent();
-                getActivity().finish();
-                startActivity(intent);
+
+                if (loginABoolean) {
+                    Intent intent = getActivity().getIntent();
+                    getActivity().finish();
+                    startActivity(intent);
+                } else {
+                    getActivity().finish();
+                }
+
             }
         });
 
