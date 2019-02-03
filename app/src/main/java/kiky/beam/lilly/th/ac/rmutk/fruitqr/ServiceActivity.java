@@ -30,6 +30,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         getUser();
 
+
     } //Main Method
 
     private void createToobar() {
