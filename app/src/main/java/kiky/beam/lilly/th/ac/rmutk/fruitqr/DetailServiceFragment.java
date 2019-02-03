@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 /**
@@ -51,6 +55,37 @@ public class DetailServiceFragment extends Fragment {
         showView();
 
         createToolbar();
+
+        showShop();
+
+    }
+
+    private void showShop() {
+
+        Myconstant myconstant = new Myconstant();
+
+        try {
+
+            GetDataWhereOneColumn getDataWhereOneColumn1 = new GetDataWhereOneColumn(getActivity());
+            getDataWhereOneColumn1.execute("id", idUserString, myconstant.getUrlGetUserWhereId());
+            String json2 = getDataWhereOneColumn1.get();
+            Log.d("2FebV2", "json2 ==> " + json2);
+
+            JSONArray jsonArray1 = new JSONArray(json2);
+            JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
+
+            TextView nameShopTextView = getView().findViewById(R.id.txtShop);
+            nameShopTextView.setText(jsonObject1.getString("Name"));
+
+            TextView addressTextView = getView().findViewById(R.id.txtAddress);
+            addressTextView.setText(jsonObject1.getString("Address"));
+
+            TextView phoneTextView = getView().findViewById(R.id.txtPhone);
+            phoneTextView.setText(jsonObject1.getString("Phone"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
