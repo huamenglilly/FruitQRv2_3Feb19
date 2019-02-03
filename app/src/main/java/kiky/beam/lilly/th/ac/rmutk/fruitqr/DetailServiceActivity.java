@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class DetailServiceActivity extends AppCompatActivity {
 
-    private String nameString, dateString, amountString, unitString, imageString;
+    private String nameString, dateString, amountString, unitString, imageString, idUserString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +18,12 @@ public class DetailServiceActivity extends AppCompatActivity {
         amountString = getIntent().getStringExtra("Amount");
         unitString = getIntent().getStringExtra("Unit");
         imageString = getIntent().getStringExtra("Image");
+        idUserString = getIntent().getStringExtra("IdUser");
 
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.contentDetailServiceFragment, DetailServiceFragment.detailServiceInstance(nameString, dateString, amountString, unitString, imageString))
+                .add(R.id.contentDetailServiceFragment, DetailServiceFragment.detailServiceInstance(nameString, dateString, amountString, unitString, imageString, idUserString))
                 .commit();
 
     }
