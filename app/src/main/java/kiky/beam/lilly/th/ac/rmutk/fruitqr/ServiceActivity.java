@@ -21,7 +21,7 @@ public class ServiceActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle; //ทำการเชื่อม  toolbar กับ ActionBarDrawerToggle
-    private String idString, nameUserString;
+    private String idString, nameUserString, typeUserString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class ServiceActivity extends AppCompatActivity {
     private void createToobar() {
         Toolbar toolbar = findViewById(R.id.toobarService);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle(nameUserString);
+        getSupportActionBar().setSubtitle(nameUserString + " " + showType(typeUserString));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_action_hamberger); //ทำแถบเมณูเป็น Hamberger
@@ -43,6 +43,22 @@ public class ServiceActivity extends AppCompatActivity {
 //        Create Hamberger Icon
         drawerLayout = findViewById(R.id.layoutDrawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(ServiceActivity.this, drawerLayout, R.string.open,R.string.close); //ต้องใส่ค่า open และ close ใน string
+    }
+
+    private String showType(String typeUserString) {
+
+        String[] strings = {"", "Admin", "Farmer", "Product", "Customer"};
+        try {
+
+            int index = Integer.parseInt(typeUserString.trim());
+            return strings[index];
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+
+
     }
 
     private void getUser() {
@@ -58,6 +74,7 @@ public class ServiceActivity extends AppCompatActivity {
             JSONObject jsonObject = jsonArray.getJSONObject(0);
 
             nameUserString = jsonObject.getString("Name");
+            typeUserString = jsonObject.getString("TypeUser");
 
             createToobar();
 
